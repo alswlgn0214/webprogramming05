@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Navigation Bars</title>
+    <style>
+        /* 공통 스타일 */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+        }
+
+        .navbar li {
+            list-style-type: none;
+        }
+
+        .navbar li a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar li a:hover {
+            background-color: #555;
+        }
+
+        .slider-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100vh;
+            width: 30%;
+            background-color: #0000ff; /* 슬라이드 배경색을 여기에 원하는 색상으로 변경해주세요 */
+            color: #fff;
+            overflow: hidden;
+            transform: translateX(100%);
+            transition: transform 0.5s;
+            z-index: 1;
+        }
+
+        .slider-container.active {
+            transform: translateX(0);
+        }
+
+        .lorem-ipsum {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <ul class="navbar">
+        <li><a href="home.html">Home 1</a></li>
+        <li><a href="about.html">About 1</a></li>
+        <li><a href="services.html">Services 1</a></li>
+        <li><a href="contact.html">Contact 1</a></li>
+        <li><a href="home2.html">Home 2</a></li>
+        <li><a href="about2.html">About 2</a></li>
+        <li><a href="services2.html">Services 2</a></li>
+    </ul>
+
+    <div id="content" style="margin-top: 70px;">
+        <div class="lorem-ipsum">
+            <h1>Lorem Ipsum</h1>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum dolor vel ex tempus, eget semper ligula interdum. Integer at leo id lacus egestas lacinia non non justo. Sed vel placerat arcu, at efficitur nisl. Ut fermentum sapien ac lectus aliquam pellentesque. Aliquam vestibulum felis ut neque aliquet, eget consequat orci pulvinar. In hac habitasse platea dictumst. Vestibulum ac tortor magna. In elementum quam non nisl varius, et varius risus euismod. Maecenas feugiat pulvin
+            </p>
+            <p>
+                Nullam tincidunt ullamcorper mi, vel varius felis sagittis ut. Nulla facilisi. Mauris eu mi rhoncus, fermentum arcu eu, malesuada lacus. Vestibulum consectetur sollicitudin sem vitae ullamcorper. Sed rutrum, arcu id commodo consectetur, ante justo suscipit odio, ac ullamcorper elit enim at risus. Proin maximus risus sit amet ipsum sagittis feugiat. Donec vel fringilla est, id commodo nulla.
+            </p>
+            <p>
+                Mauris vitae lorem at erat tristique convallis sed at tortor. Pellentesque non urna nulla. In eu fringilla metus, eu luctus neque. Mauris tincidunt, mi ac varius feugiat, ligula tellus feugiat enim, in auctor lorem lorem sed libero. Quisque eu sagittis metus. In hac habitasse platea dictumst. Sed mattis erat nunc, vel semper lectus finibus sed. Aliquam sit amet magna rutrum, eleifend eros eget, auctor elit. Duis finibus eros ut auctor dignissim.
+            </p>
+        </div>
+    </div>
+
+    <div class="slider-container">
+        <div class="lorem-ipsum">
+            <h1>Lorem Ipsum</h1>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum dolor vel ex tempus, eget semper ligula interdum. Integer at leo id lacus egestas lacinia non non justo. Sed vel placerat arcu, at efficitur nisl. Ut fermentum sapien ac lectus aliquam pellentesque. Aliquam vestibulum felis ut neque aliquet, eget consequat orci pulvinar. In hac habitasse platea dictumst. Vestibulum ac tortor magna. In elementum quam non nisl varius, et varius risus euismod. Maecenas feugiat pulvin
+            </p>
+            <p>
+                Nullam tincidunt ullamcorper mi, vel varius felis sagittis ut. Nulla facilisi. Mauris eu mi rhoncus, fermentum arcu eu, malesuada lacus. Vestibulum consectetur sollicitudin sem vitae ullamcorper. Sed rutrum, arcu id commodo consectetur, ante justo suscipit odio, ac ullamcorper elit enim at risus. Proin maximus risus sit amet ipsum sagittis feugiat. Donec vel fringilla est, id commodo nulla.
+            </p>
+            <p>
+                Mauris vitae lorem at erat tristique convallis sed at tortor. Pellentesque non urna nulla. In eu fringilla metus, eu luctus neque. Mauris tincidunt, mi ac varius feugiat, ligula tellus feugiat enim, in auctor lorem lorem sed libero. Quisque eu sagittis metus. In hac habitasse platea dictumst. Sed mattis erat nunc, vel semper lectus finibus sed. Aliquam sit amet magna rutrum, eleifend eros eget, auctor elit. Duis finibus eros ut auctor dignissim.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function loadPage(url) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('content').innerHTML = this.responseText;
+                }
+            };
+            xhttp.open('GET', url, true);
+            xhttp.send();
+        }
+
+        var links = document.querySelectorAll('.navbar li a');
+        links.forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                var url = this.getAttribute('href');
+                loadPage(url);
+            });
+        });
+
+        // 초기 페이지 로드
+        loadPage('home.html');
+
+        window.addEventListener('DOMContentLoaded', function() {
+            var sliderContainer = document.querySelector('.slider-container');
+            var sliderContent = document.querySelector('.slider-container .lorem-ipsum');
+
+            sliderContainer.classList.add('active');
+            sliderContent.style.opacity = '1';
+            sliderContent.style.transform = 'translateX(0)';
+        });
+    </script>
+</body>
+</html>
